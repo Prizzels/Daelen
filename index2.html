@@ -1,0 +1,955 @@
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Subclasses — External Assets</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root { --header-h:170px; }
+body { background:#0b0b0e; color:#e5e7eb; }
+.sticky-col { position:sticky; top:calc(var(--header-h) + 24px); }
+.classBtn { border:0; background:transparent; padding:0; margin:0 2px; }
+.classBtn.selected img { outline:2px solid #c8a96a; outline-offset:2px; border-radius:6px; }
+.top-icons-row { gap:0; overflow:visible; padding-left:.5rem; padding-right:.5rem; }
+.anchor { scroll-margin-top: calc(var(--header-h) + 16px); }
+.ability-card { display:grid; grid-template-columns: 1fr 224px; gap:16px; }
+@media (max-width:1023px) { .ability-card { display:block; } }
+
+/* inline minis for spell lines */
+.inline-icon{ display:inline-block; width:1.25em; height:1.25em; vertical-align:-0.2em; margin-right:.4em; object-fit:contain; }
+/* cost icons inside parentheses */
+.cost-icon{ display:inline-block; width:1.15em; height:1.15em; vertical-align:-0.15em; margin:0 .15em; object-fit:contain; }
+
+nav a.active { background:#1a1b22; color:#fff; }
+
+/* Friar's Bond variant buttons */
+#bondRow .bondBtn img { width:72px; height:72px; display:block; }
+#bondRow .bondBtn { margin:5px; }
+@media (min-width:1024px) { #bondRow .bondBtn img { width:88px; height:88px; } }
+
+/* Ability meta layout refinements */
+.cost-icon{width:1.15em;height:1.15em;vertical-align:-0.2em;margin:0 .25em;display:inline-block;object-fit:contain}
+.inline-icon{width:1.15em;height:1.15em;vertical-align:-0.2em;margin-right:.35em;object-fit:contain}
+.meta-type{font-weight:500}
+.meta-sep{opacity:.6;margin:0 .5rem}
+/* keep cards tight */
+.ability-card .text-gray-400 em{display:inline-block;line-height:1.35}
+.meta-sep{opacity:.6;margin:0 .5rem}
+.cost-icon{width:1.15em;height:1.15em;vertical-align:-.2em;margin:0 .25em;display:inline-block;object-fit:contain}
+.slot-icons img{margin:0 .1rem}.meta-sep{opacity:.7;margin:0 .5rem}
+.cost-icon{width:1.05em;height:1.05em;vertical-align:-.2em;margin:0 .25em;display:inline-block;object-fit:contain}
+.slot-icons img{margin:0 .1rem}
+.meta-sep{display:inline-block; padding:0 .6rem; margin:0 .15rem; opacity:.85}
+.cost-icon{width:1.15em;height:1.15em;vertical-align:-.2em;margin:0 .4rem;display:inline-block;object-fit:contain}
+.inline-icon{width:1.15em;height:1.15em;vertical-align:-.2em;margin-right:.4rem;object-fit:contain}
+.slot-icons img{margin:0 .12rem}
+.ability-card{position:relative}
+.ability-card .mt-3.p-3.rounded{display:block; max-width:100%; clear:both}
+
+/* clearer, breathing pipe layout */
+.meta-sep{display:inline-block;padding:0 .7rem;margin:0 .2rem;opacity:.9}
+.cost-icon{width:1.15em;height:1.15em;vertical-align:-.2em;margin:0 .45rem;display:inline-block;object-fit:contain}
+.inline-icon{width:1.15em;height:1.15em;vertical-align:-.2em;margin-right:.45rem;object-fit:contain}
+.slot-icons img{margin:0 .12rem}
+/* keep cards from squishing nested boxes */
+.ability-card{position:relative;overflow:hidden}
+.ability-card .mt-3.p-3.rounded{display:block;max-width:100%;clear:both;float:none}
+/* guarantee main column stays on the left and owns the flow */
+.ability-card > div:first-child{float:none}
+
+/* Force range/radius to appear on new line */
+.range-radius-line { display: block; margin-top: 0.35rem; }
+.range-radius-line .meta-sep:first-child { display: none; }
+
+/* Mobile optimizations */
+@media (max-width:640px) {
+  /* Reduce header icon sizes on very small screens */
+  .classBtn img { width: 3.5rem !important; height: 3.5rem !important; }
+  
+  /* Better spacing for ability cards */
+  .ability-card { padding: 0.75rem !important; }
+  
+  /* Smaller ability titles on mobile */
+  .ability-card h3 { font-size: 1.4rem !important; }
+  
+  /* Tighter metadata spacing */
+  .meta-sep { padding: 0 0.4rem; margin: 0 0.1rem; }
+  
+  /* Stack metadata more gracefully on small screens */
+  .text-gray-400 em { line-height: 1.6; }
+  
+  /* Better text sizing in cards */
+  .ability-card .mt-3 { font-size: 0.95rem; }
+}
+
+@media (max-width:768px) {
+  /* Ensure bond variant buttons wrap nicely */
+  #bondRow { justify-content: center; }
+  #bondRow .bondBtn img { width: 64px; height: 64px; }
+  
+  /* Stack ability card grid on tablets */
+  .ability-card { grid-template-columns: 1fr !important; }
+}
+</style>
+</head>
+<body>
+<header class="sticky top-0 z-40" id="topHeader" style="background:#121217cc; backdrop-filter: blur(6px); border-bottom:1px solid #22232b">
+<div class="border-b" style="border-color:#22232b">
+<div class="max-w-7xl mx-auto px-4 py-2">
+<!-- Mobile: 2 rows of 6 -->
+<div class="grid grid-cols-6 gap-0 place-items-center justify-items-center lg:hidden">
+<button class="classBtn" title="Wizard"><img alt="Wizard" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/874a4d18-b1fa-4b67-830b-9c7ba2e04367.png"/></button>
+<button class="classBtn" data-class="warlock" title="Warlock"><img alt="Warlock" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/4c1c3cca-8f29-4c65-a747-1e4aab650ae0.png"/></button>
+<button class="classBtn" title="Sorcerer"><img alt="Sorcerer" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/14fe9573-cb98-463d-9309-ce408f3b833e.png"/></button>
+<button class="classBtn" title="Rogue"><img alt="Rogue" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/fc053988-fd9c-4e54-8056-e7d9cf241727.png"/></button>
+<button class="classBtn" data-class="druid" title="Druid"><img alt="Druid" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/20f97fbb-d895-4255-8c82-56c7fc9bd75a.png"/></button>
+<button class="classBtn" data-class="paladin" title="Paladin"><img alt="Paladin" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/c53619d4-8ab6-421e-a604-b3b8efb9cc2f.png"/></button>
+<button class="classBtn" title="Cleric"><img alt="Cleric" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/d72d066c-8e9a-44e9-93ea-d66718015566.png"/></button>
+<button class="classBtn" title="Fighter"><img alt="Fighter" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/974c4ec7-f0c0-4da3-8603-0c4617594a38.png"/></button>
+<button class="classBtn" title="Ranger"><img alt="Ranger" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/9c2b993b-39dc-4a21-b7e9-724ecf4df6eb.png"/></button>
+<button class="classBtn" data-class="monk" title="Monk"><img alt="Monk" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/80138309-f7f6-4594-bf02-2a80b61eeb59.png"/></button>
+<button class="classBtn" title="Barbarian"><img alt="Barbarian" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/bcb5645c-2b07-40c5-84fc-1eee06201c4f.png"/></button>
+<button class="classBtn" data-class="bard" title="Bard"><img alt="Bard" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/cf1fc22f-1623-4e34-b91c-f806f9fa7613.png"/></button>
+</div>
+<!-- Desktop: single row -->
+<div class="hidden lg:flex items-center gap-4">
+<div class="text-white text-3xl mr-4 whitespace-nowrap" style="font-family: 'UnifrakturCook', serif;">Daelen's Testament of the Otherworldly</div>
+<div class="flex-1">
+<div class="flex top-icons-row lg:flex-nowrap lg:justify-center lg:overflow-x-auto">
+<button class="classBtn" title="Wizard"><img alt="Wizard" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/wizard.png"/></button>
+<button class="classBtn" data-class="warlock" title="Warlock"><img alt="Warlock" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/warlock.png"/></button>
+<button class="classBtn" title="Sorcerer"><img alt="Sorcerer" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/sorcerer.png"/></button>
+<button class="classBtn" title="Rogue"><img alt="Rogue" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/rogue.png"/></button>
+<button class="classBtn" data-class="druid" title="Druid"><img alt="Druid" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/druid.png"/></button>
+<button class="classBtn" data-class="paladin" title="Paladin"><img alt="Paladin" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/paladin.png"/></button>
+<button class="classBtn" title="Cleric"><img alt="Cleric" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/cleric.png"/></button>
+<button class="classBtn" title="Fighter"><img alt="Fighter" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/fighter.png"/></button>
+<button class="classBtn" title="Ranger"><img alt="Ranger" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/ranger.png"/></button>
+<button class="classBtn" data-class="monk" title="Monk"><img alt="Monk" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/monk.png"/></button>
+<button class="classBtn" title="Barbarian"><img alt="Barbarian" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/barbarian.png"/></button>
+<button class="classBtn" data-class="bard" title="Bard"><img alt="Bard" class="w-16 h-16 md:w-20 md:h-20 object-contain" src="images/bard.png"/></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-4 py-3 border-b" style="border-color:#22232b">
+<div class="w-full flex items-center justify-center text-center text-sm" id="crumb"></div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-6">
+<!-- =================== MONK =================== -->
+<section class="grid grid-cols-12 gap-6" id="class-monk">
+<aside class="hidden lg:block col-span-12 lg:col-span-3 sticky-col">
+<div class="space-y-4">
+<div class="w-[min(100%,280px)] mx-auto text-center">
+<img alt="Way of the Friar icon" class="object-contain mx-auto" src="images/Friar.png" style="width:240px;height:240px"/>
+<h2 class="text-2xl font-semibold mt-3">Way of the Friar</h2>
+<p class="text-gray-400 mt-3"><em>"A paragon of the community whose altruistic spirit protects and empowers their allies."</em></p>
+</div>
+<div class="flex justify-center">
+<div class="rounded-lg" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<nav class="py-2" id="progressionNavMonk">
+<a class="block px-4 py-2 text-sm hover:bg-white/5 active" data-target="monk-lore" href="#monk-lore">Lore</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="monk-lvl3" href="#monk-lvl3">3rd Level - Subclass Selection</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="monk-lvl6" href="#monk-lvl6">6th Level</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="monk-lvl9" href="#monk-lvl9">9th Level</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="monk-lvl11" href="#monk-lvl11">11th Level</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="monk-lvl17" href="#monk-lvl17">17th Level</a>
+</nav>
+</div>
+</div>
+</div>
+</aside>
+<section class="col-span-12 lg:col-span-9 flex flex-col gap-8" id="centerPanelMonk">
+<!-- LORE -->
+<section class="anchor rounded-lg" id="monk-lore" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">Lore</h2></header>
+<div class="p-6 text-lg text-gray-400"><em>"Where many monastic paths bend inward, the Friars I encountered in this dwarven village are drawn to lead. I have watched them at first light doing what they can; mending, teaching and guiding long before a blade is ever drawn. Perhaps most impressive is that they bear Lathander's radiance as a lantern, not a lance. When violence comes, they step between, staves poised and shields raised. They are not pacifists; while they choose to protect, they are formidable in their own right. I set this down not as flattery but as a record: courage can be quiet and humility can be bold."</em></div>
+</section>
+<!-- Level 3 -->
+<section class="anchor rounded-lg" id="monk-lvl3" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">3rd Level – Subclass Selection</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Friar's Bond</h3>
+<div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Bonus Action <img alt="Bonus Action" class="cost-icon" src="images/bonus_action.png"/><span class="meta-sep">|</span>1 Ki Point <img alt="1 Ki Point" class="cost-icon" src="images/Ki_Point.png"/><span class="range-radius-line"><span class="meta-sep">|</span>Range 9 m<img alt="Range" class="cost-icon" src="images/range.png"/></span></em></div>
+<div class="mt-3">Designate an ally as your Kin and grant a variety of blessings while they remain nearby. You and your Kin gain temporary hit points equal to your Wisdom Modifier at the start of each turn.
+    <ul class="mt-2 list-disc pl-5">
+<li><strong>Duration:</strong> Concentration</li>
+</ul>
+</div>
+<div class="mt-4">
+<div class="text-sm uppercase tracking-wide text-gray-400 mb-2">Blessing Variants</div>
+<div class="flex flex-wrap items-center gap-0" id="bondRow">
+<button aria-pressed="false" class="bondBtn" data-key="bless" title="Friar's Blessing"><img alt="Friar's Blessing" src="images/friar_bless.png"/></button>
+<button aria-pressed="false" class="bondBtn" data-key="valor" title="Friar's Valor"><img alt="Friar's Valor" src="images/friar_valor.png"/></button>
+<button aria-pressed="false" class="bondBtn" data-key="retribution" title="Friar's Retribution"><img alt="Friar's Retribution" src="images/flamestrike.png"/></button>
+<button aria-pressed="false" class="bondBtn" data-key="faith" title="Friar's Faith"><img alt="Friar's Faith" src="images/friar_faith.png"/></button>
+</div>
+<div class="mt-3 p-3 rounded" id="bondDetail" style="border:1px solid #22232b;background:rgba(0,0,0,.2);display:none"></div>
+</div>
+<div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Leap of Faith:</span><div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Bonus Action <img alt="Bonus Action" class="cost-icon" src="images/bonus_action.png"/><span class="meta-sep">|</span>1 Ki Point <img alt="1 Ki Point" class="cost-icon" src="images/Ki_Point.png"/><span class="range-radius-line"><span class="meta-sep">|</span>Range 9 m<img alt="Range" class="cost-icon" src="images/range.png"/></span></em></div><div class="mt-2">Teleport to an unoccupied space beside your Kin. <em>Unlocked by casting Friar's Bond.</em></div></div></div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Friar's Bond icon" class="object-contain" src="images/friar_bond.png" style="width:224px;height:224px"/>
+</div>
+</article>
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Guardian of Light</h3>
+<div class="text-gray-400"><em>Passive</em></div>
+<div class="mt-3">Gain proficiency with Shields. While you have a shield equipped, you gain Advantage on Concentration checks and still benefit from Unarmoured Defense.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Guardian of Light icon" class="object-contain" src="images/guardian_of_light.png" style="width:224px;height:224px"/>
+</div>
+</article>
+<article class="rounded-md p-4" style="border:1px solid #22232b">
+<h3 class="font-semibold leading-tight text-[1.4rem]">Additional Spells Known – Always Prepared</h3>
+<ul class="mt-3 space-y-2">
+<li><img alt="Guidance icon" class="inline-icon" src="images/cfc4f214-507d-4934-a230-b7856621b90f.png"/>Guidance <span class="text-gray-400">(Cantrip)</span></li>
+</ul>
+</article>
+</div>
+</section>
+<!-- Level 6 -->
+<section class="anchor rounded-lg" id="monk-lvl6" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">6th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Staff Mastery</h3>
+<div class="text-gray-400"><em>Passive</em></div>
+<div class="mt-3">Become one with your staff. While you have a quarterstaff equipped, you can make attacks with Reach (2.5m). This bonus increases by 1m at level 11 and 17.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Staff Mastery icon" class="object-contain" src="images/staff_mastery.png" style="width:224px;height:224px"/>
+</div>
+</article>
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Guiding Strike</h3>
+<div class="text-gray-400"><em>Attack<span class="meta-sep">|</span>Bonus Action <img alt="Bonus Action" class="cost-icon" src="images/bonus_action.png"/><span class="meta-sep">|</span>2 Ki Points <img alt="Ki Points" class="cost-icon" src="images/Ki_Point.png"/><span class="meta-sep">|</span>Melee<img alt="Melee" class="cost-icon" src="images/Melee_Icon.png"/></em></div>
+<div class="mt-3">Strike a foe with your staff, illuminating them and granting Advantage to attacks against them until the start of your next turn.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Guiding Strike icon" class="object-contain" src="images/guiding_strike.png" style="width:224px;height:224px"/>
+</div>
+</article>
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Pacifying Sweep</h3>
+<div class="text-gray-400"><em>Attack<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>2 Ki Points <img alt="Ki Points" class="cost-icon" src="images/Ki_Point.png"/><span class="meta-sep">|</span>Strength/Wisdom Save<span class="meta-sep">|</span>Melee<img alt="Melee" class="cost-icon" src="images/Melee_Icon.png"/></em></div>
+<div class="mt-3">Sweep your staff in a wide arc, striking all foes within. On a failed Strength save, they are knocked back 2.5m. On a failed Wisdom save, they become Pacified for 1 turn and are unable to take actions unless damaged.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Guiding Strike icon" class="object-contain" src="images/pacifying_sweep.png" style="width:224px;height:224px"/>
+</div>
+</article>
+</div>
+</section>
+<!-- Level 9 -->
+<section class="anchor rounded-lg" id="monk-lvl9" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">9th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Cleansing Wave</h3>
+<div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Action Point <img alt="Action Point" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>3 Ki Points <img alt="3 Ki Points" class="cost-icon" src="images/Ki_Point.png"/><span class="range-radius-line"><span class="meta-sep">|</span>Range 9 m<img alt="Range" class="cost-icon" src="images/range.png"/></span><span class="range-radius-line"><span class="meta-sep">|</span>Cone 75°<img alt="Cone" class="cost-icon" src="images/aoe.png"/></span></em></div>
+<div class="mt-3">Emit a soothing mist that cures yourself and allies of Lesser and Greater conditions.
+    <ul class="mt-2 list-disc pl-5">
+<li><strong>Recharge:</strong> Once per battle</li>
+<li><strong>Lesser Conditions:</strong> Poison, Blind, Paralysis and Disease</li>
+<li><strong>Greater Conditions:</strong> Charm, Petrify, Stun and Curse</li>
+</ul></div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Cleansing Wave" class="object-contain" src="images/cleansing_wave.png" style="width:224px;height:224px"/>
+</div>
+</article>
+</div>
+</section>
+<!-- Level 11 -->
+<section class="anchor rounded-lg" id="monk-lvl11" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">11th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Shared Resolve</h3>
+<div class="text-gray-400"><em>Passive</em></div>
+<div class="mt-3">You can target an additional ally with Friar's Bond and gain additional temporary hit points per turn.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Shared Resolve" class="object-contain" src="images/shared_resolve.png" style="width:224px;height:224px"/>
+</div>
+</article>
+</div>
+</section>
+<!-- Level 17 -->
+<section class="anchor rounded-lg" id="monk-lvl17" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">17th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Community</h3>
+<div class="text-gray-400"><em>Passive</em></div>
+<div class="mt-3">You can target a third ally with Friar's Bond.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Shared Resolve" class="object-contain" src="images/community.png" style="width:224px;height:224px"/>
+</div>
+</article>
+</div>
+</section>
+</section>
+</section>
+<!-- END MONK -->
+<!-- =================== BARD =================== -->
+<section class="grid grid-cols-12 gap-6 hidden" id="class-bard">
+<aside class="hidden lg:block col-span-12 lg:col-span-3 sticky-col">
+<div class="space-y-4">
+<div class="w-[min(100%,280px)] mx-auto text-center">
+<img alt="College of Stormcalling icon" class="object-contain mx-auto" src="images/Stormcalling.png" style="width:240px;height:240px"/>
+<h2 class="text-2xl font-semibold mt-3">College of Stormcalling</h2>
+<p class="text-gray-400 mt-3"><em>"Those bards whose voices carry unnatural power find themselves becoming a force of nature in their own right."</em></p>
+</div>
+<div class="flex justify-center">
+<div class="rounded-lg" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<nav class="py-2" id="progressionNavBard">
+<a class="block px-4 py-2 text-sm hover:bg-white/5 active" data-target="bard-lore" href="#bard-lore">Lore</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="bard-lvl3" href="#bard-lvl3">3rd Level - Subclass Selection</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="bard-lvl6" href="#bard-lvl6">6th Level</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="bard-lvl14" href="#bard-lvl14">14th Level</a>
+</nav>
+</div>
+</div>
+</div>
+</aside>
+<section class="col-span-12 lg:col-span-9 flex flex-col gap-8" id="centerPanelBard">
+<section class="anchor rounded-lg" id="bard-lore" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">Lore</h2></header>
+<div class="p-6 text-lg text-gray-400"><em>"At first it was only a tremor, felt more than heard, coming from somewhere beyond the horizon. As we drew near, tremor became thunder, and on the wind rode a voice no mere mortal could match. Rather than tempest given shape, it was but a trio of bards who greeted us with song that made the storm come alive, where the clouds took measure, lightning marked the beat, and thunder offered its applause. Their tenors and baritones were beautiful and deafening, melding harmony and dissonance with a flair for the dramatic. I must find a way to visit the College of Stormcalling myself; I would know the discipline that teaches breath to move the heavens."</em></div>
+</section>
+<section class="anchor rounded-lg" id="bard-lvl3" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">3rd Level – Subclass Selection</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Chorus of Thunder</h3>
+<div class="text-gray-400"><em>Passive Toggle<span class="meta-sep">|</span>1 Bardic Inspiration <img alt="1 Bardic Inspiration" class="cost-icon" src="images/Bardic_Inspiration.png"/></em></div>
+<div class="mt-3">Your next levelled Thunder damage spell is empowered by your booming voice. Creatures must make a Constitution Saving Throw or suffer from Concussion for 1 turn.</div>
+<div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Concussion:</span> Knocked prone, can't take reactions or make more than 1 attack per turn and can only take either an action or a bonus action.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Chorus of Thunder" class="object-contain" src="images/chorus_of_thunder.png" style="width:224px;height:224px"/>
+</div>
+</article>
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Thundercall</h3>
+<div class="text-gray-400"><em>Cantrip<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Ranged Spell Attack <img alt="Attack Roll" class="cost-icon" src="images/attack.png"/><span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span></em></div>
+<div class="mt-3">Bellow a powerful note dealing 1d8 Thunder damage on target creature. Gain additional range based on your Charisma modifier.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Thundercall" class="object-contain" src="images/thundercall.png" style="width:224px;height:224px"/>
+</div>
+</article>
+<article class="rounded-md p-4" style="border:1px solid #22232b">
+<h3 class="font-semibold leading-tight text-[1.4rem]">Additional Spells Known</h3>
+<ul class="mt-3 space-y-2">
+<li><img alt="Thunderwave icon" class="inline-icon" src="images/197f1d3a-10be-427a-ba31-236390396772.png"/>Thunderwave <span class="text-gray-400">(1st Level)</span></li>
+<li><img alt="Shatter icon" class="inline-icon" src="images/505b36dc-f4c1-4843-8bda-000c17e89f35.png"/>Shatter <span class="text-gray-400">(2nd Level)</span></li>
+</ul>
+</article>
+</div>
+</section>
+<section class="anchor rounded-lg" id="bard-lvl6" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">6th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Electrifying Aria</h3>
+<div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Action Point <img alt="Action Point" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>3rd Level Spell Slot <span class="slot-icons"><img alt="Spell Slot" class="cost-icon" src="images/Spell_Slot.png"/><img alt="Spell Slot" class="cost-icon" src="images/Spell_Slot.png"/><img alt="Spell Slot" class="cost-icon" src="images/Spell_Slot.png"/></span><span class="range-radius-line"><span class="meta-sep">|</span>Radius 9 m<img alt="Radius" class="cost-icon" src="images/aoe.png"/></span></em></div>
+<div class="mt-3">Your tremendous aria electrifies the air, raining down lightning strikes upon your foes dealing 6d6 Lightning damage and Electrifying them. Gain additional radius based on your Charisma modifier.</div>
+<div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)">
+<div><span class="font-semibold">Electrify:</span> Cannot take bonus actions or reactions, disadvantage on Constitution saves.</div>
+<div class="mt-2"><span class="font-semibold">Upcast:</span> 1d6 Lightning damage, increased radius by 1m.</div>
+</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Electrifying Aria" class="object-contain" src="images/electrifying_aria.png" style="width:224px;height:224px"/>
+</div>
+</article>
+</div>
+</section>
+<section class="anchor rounded-lg" id="bard-lvl14" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">14th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Conductor</h3>
+<div class="text-gray-400"><em>Passive</em></div>
+<div class="mt-3">When you cast a levelled Lightning or Thunder damage spell, you can cast <strong>Storm Bolt</strong> as a bonus action.</div>
+<div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Storm Bolt:</span><div class="text-gray-400"><em>Cantrip<span class="meta-sep">|</span>Bonus Action <img alt="Bonus Action" class="cost-icon" src="images/bonus_action.png"/><span class="meta-sep">|</span>Ranged Spell Attack <img alt="Attack Roll" class="cost-icon" src="images/attack.png"/><span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span></em></div><div class="mt-2">Call down a lightning bolt, dealing 3d10 Lightning damage to all targets in a 2m radius.</div></div></div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Conductor" class="object-contain" src="images/conductor.png" style="width:224px;height:224px"/>
+</div>
+</article>
+</div>
+</section>
+</section>
+</section>
+<!-- END BARD -->
+<!-- =================== WARLOCK – The Psyker =================== -->
+<section class="grid grid-cols-12 gap-6 hidden" id="class-warlock">
+<aside class="hidden lg:block col-span-12 lg:col-span-3 sticky-col">
+<div class="space-y-4">
+<div class="w-[min(100%,280px)] mx-auto text-center">
+<img alt="The Psyker icon" class="object-contain mx-auto" src="images/Psyker.png" style="width:240px;height:240px"/>
+<h2 class="text-2xl font-semibold mt-3">The Psyker</h2>
+<p class="text-gray-400 mt-3"><em>"Drawn to a great beacon in the dark whose patronage grants access to a realm known only as the Warp, these warlocks rend the fabric of reality itself."</em></p>
+</div>
+<div class="flex justify-center">
+<div class="rounded-lg" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<nav class="py-2" id="progressionNavWarlock">
+<a class="block px-4 py-2 text-sm hover:bg-white/5 active" data-target="warlock-lore" href="#warlock-lore">Lore</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="warlock-lvl1" href="#warlock-lvl1">1st Level - Subclass Selection</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="warlock-lvl6" href="#warlock-lvl6">6th Level</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="warlock-lvl10" href="#warlock-lvl10">10th Level</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="warlock-lvl14" href="#warlock-lvl14">14th Level</a>
+</nav>
+</div>
+</div>
+</div>
+</aside>
+<section class="col-span-12 lg:col-span-9 flex flex-col gap-8" id="centerPanelWarlock">
+<!-- LORE -->
+<section class="anchor rounded-lg" id="warlock-lore" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">Lore</h2></header>
+<div class="p-6 text-lg text-gray-400 space-y-4">
+<p><em>"Not long after the battle had ended, I was summoned to observe the questioning of a warlock we had taken alive. He was one of those wielding a power unknown to us, a force that bent past our strongest wards as if they were cobwebs. Our clerics could not pierce his thoughts, nor could the magi hold his gaze for long—madness curled into their minds like smoke, forcing them to look away.</em></p>
+<p><em>I chose another path. I spoke with him not as a captor, but as a scholar. At first his words were halting, as if weighed down by exhaustion, but before long he poured out his tale. He spoke of walking the edge of oblivion, of the great lighthouse in the dark he only knew by its luster. Each time he called upon that beacon, it demanded more from him—mind, body, spirit alike—until his voice shook with equal parts reverence and torment.</em></p>
+<p><em>As he raved, his eyes shone with that same lightless malevolence I had glimpsed on the field. His words quickened, frayed at the edges, and then—without warning—his form erupted in a pillar of unholy flame. We staggered back, blinded and horrified, as he was consumed before us. I was left aghast, my heart thundering with one question only: what power had we truly come against?"</em></p>
+</div>
+</section>
+<!-- 1st Level -->
+<section class="anchor rounded-lg" id="warlock-lvl1" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">1st Level – Subclass Selection</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Warp Wielder</h3>
+<div class="text-gray-400"><em>Passive Toggle</em></div>
+<div class="mt-3">When you deal damage with Eldritch Blast, you curse the target with Warp for 2 turns. Additional Eldritch Blast strikes against Warped foes reduces the duration by 1.</div>
+<div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Warp:</span> When Warp ends it detonates dealing 1d10 Force damage to all foes within 3m. Deal an additional 1d10 Force damage at level 5, 11, 17.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Warp Wielder icon" class="object-contain" src="images/warp_wielder.png" style="width:224px;height:224px"/>
+</div>
+</article>
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Perils of the Warp</h3>
+<div class="text-gray-400"><em>Passive</em></div>
+<div class="mt-3">Each time you cast a Warped Eldritch Blast or Warp detonates, your maximum hitpoints are reduced by 1d4 per stack. This penalty dice increases to 1d6/1d8/1d10 at level 5, 11 and 17. While you have Perils of the Warp, you are subject to unpredictable consequences at the start of each turn.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Perils of the Warp icon" class="object-contain" src="images/perils_warp.png" style="width:224px;height:224px"/>
+</div>
+</article>
+<article class="rounded-md p-4" style="border:1px solid #22232b">
+<h3 class="font-semibold leading-tight text-[1.4rem]">Additional Spells Known</h3>
+<ul class="mt-3 space-y-2">
+<li><img alt="Eldritch Blast icon" class="inline-icon" src="images/eldritch_blast.png"/>Eldritch Blast <span class="text-gray-400">(Cantrip)</span></li>
+<li><img alt="Chaos Bolt icon" class="inline-icon" src="images/chaos_bolt.png"/>Chaos Bolt <span class="text-gray-400">(1st Level)</span></li>
+</ul>
+</article>
+</div>
+</section>
+<!-- 6th Level -->
+<section class="anchor rounded-lg" id="warlock-lvl6" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">6th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Soul Rupture</h3>
+<div class="text-gray-400"><em>Passive</em></div>
+<div class="mt-3">Once per turn, killing a creature reduces your Perils of the Warp duration by 2.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Soul Rupture icon" class="object-contain" src="images/soul_rupture.png" style="width:224px;height:224px"/>
+</div>
+</article>
+</div>
+</section>
+<!-- 10th Level -->
+<section class="anchor rounded-lg" id="warlock-lvl10" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">10th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Gellar's Field</h3>
+<div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Bonus Action <img alt="Bonus Action" class="cost-icon" src="images/bonus_action.png"/><span class="meta-sep">|</span>Once per Short Rest</em></div>
+<div class="mt-3">Create a protective field that negates Perils of the Warp and grants immunity against Perils returning for 2 turns.</div>
+<div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)">If Gellar's Field triggers in response to Perils of the Warp, it does not consume your charge.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Gellar's Field icon" class="object-contain" src="images/gellars_field.png" style="width:224px;height:224px"/>
+</div>
+</article>
+</div>
+</section>
+<!-- 14th Level -->
+<section class="anchor rounded-lg" id="warlock-lvl14" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">14th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Chaos Rift</h3>
+<div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>5th Level Spell Slot <span class="slot-icons"><img alt="Spell Slot" class="cost-icon" src="images/Spell_Slot.png"/><img alt="Spell Slot" class="cost-icon" src="images/Spell_Slot.png"/><img alt="Spell Slot" class="cost-icon" src="images/Spell_Slot.png"/><img alt="Spell Slot" class="cost-icon" src="images/Spell_Slot.png"/><img alt="Spell Slot" class="cost-icon" src="images/Spell_Slot.png"/></span><span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span><span class="range-radius-line"><span class="meta-sep">|</span>Radius 6 m<img alt="Radius" class="cost-icon" src="images/aoe.png"/></span></em></div>
+<div class="mt-3">Rips the fabric of reality, cursing all foes with Warp and potentially inflicting a number of statuses including but not limited to: Burning, Banished, Paralyzed, Frozen, Force Vulnerability, Confusion, Phantasmal Killer, Knockback, Frighten.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Chaos Rift icon" class="object-contain" src="images/chaos_rift.png" style="width:224px;height:224px"/>
+</div>
+</article>
+</div>
+</section>
+</section>
+</section>
+<!-- END WARLOCK -->
+<!-- =================== PALADIN – Oath of Illumination =================== -->
+<section class="grid grid-cols-12 gap-6 hidden" id="class-paladin">
+<aside class="hidden lg:block col-span-12 lg:col-span-3 sticky-col">
+<div class="space-y-4">
+<div class="w-[min(100%,280px)] mx-auto text-center">
+<img alt="Oath of Illumination icon" class="object-contain mx-auto" src="images/Illumination.png" style="width:240px;height:240px"/>
+<h2 class="text-2xl font-semibold mt-3">Oath of Illumination</h2>
+<p class="text-gray-400 mt-3"><em>"A righteous warrior on a crusade against the wicked wielding the Dawn itself as a weapon."</em></p>
+</div>
+<div class="flex justify-center">
+<div class="rounded-lg" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<nav class="py-2" id="progressionNavPaladin">
+<a class="block px-4 py-2 text-sm hover:bg-white/5 active" data-target="pal-lore" href="#pal-lore">Lore</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="pal-lvl1" href="#pal-lvl1">1st Level - Subclass Selection</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="pal-lvl3" href="#pal-lvl3">3rd Level</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="pal-lvl7" href="#pal-lvl7">7th Level</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="pal-lvl11" href="#pal-lvl11">11th Level</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="pal-lvl15" href="#pal-lvl15">15th Level</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="pal-lvl20" href="#pal-lvl20">20th Level</a>
+</nav>
+</div>
+</div>
+</div>
+</aside>
+<section class="col-span-12 lg:col-span-9 flex flex-col gap-8" id="centerPanelPaladin">
+<!-- Lore -->
+<section class="anchor rounded-lg" id="pal-lore" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">Lore</h2></header>
+<div class="p-6 text-lg text-gray-300 space-y-4">
+<p><em>"In those early years I walked as a servant of the Dawn, a cleric of Lathander who lifted hymns more often than steel. My hands were shaped for prayer, for healing, for carrying the light gently into places that feared its touch. Yet the more I served, the more I came to see that light was not always welcome, nor always safe. There were shadows so deep they would not yield to words, and men so cruel they would not bow to blessing.</em></p>
+<p><em>In a fit of righteous indignation I took an oath in Lathander's name, one that would lead me on a journey that you now read of in these pages and teach me the meaning of standing up for what is right."</em></p>
+<p><em>"Light the Path. Become a beacon for those who are lost. Purge the Darkness. Leave the wicked no place to hide. Seek the Ascension. Take your rightful place amongst the Dawnlords."</em></p>
+</div>
+</section>
+<!-- 1st Level -->
+<section class="anchor rounded-lg" id="pal-lvl1" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">1st Level – Subclass Selection</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Wrath of Dawn</h3>
+<div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Channel Oath <img alt="Channel Oath" class="cost-icon" src="images/Channel_Oath.png"/><span class="meta-sep">|</span>Dexterity Save<span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span></em></div>
+<div class="mt-3">Fire a blast of intense energy dealing 2d4 + Paladin Level radiant damage and searing its path with Holy Fire.</div>
+<div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)">Damage Scaling: +2d4 radiant at level 5, 11, and 17.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Wrath of Dawn icon" class="object-contain" src="images/wrath_of_dawn.png" style="width:224px;height:224px"/>
+</div>
+</article>
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Sunlance</h3>
+<div class="text-gray-400"><em>Cantrip<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Ranged Spell Attack <img alt="Attack Roll" class="cost-icon" src="images/attack.png"/><span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span><span class="range-radius-line"><span class="meta-sep">|</span>Radius 3 m<img alt="Radius" class="cost-icon" src="images/aoe.png"/></span></em></div>
+<div class="mt-3">Strike a target location with a lance of light dealing 1d8 radiant damage. Deals an additional 1d4 radiant damage against Fiends and Undead.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Sunlance icon" class="object-contain" src="images/sunlance.png" style="width:224px;height:224px"/>
+</div>
+</article>
+<article class="rounded-md p-4" style="border:1px solid #22232b">
+<h3 class="font-semibold leading-tight text-[1.4rem]">Additional Spells Known</h3>
+<ul class="mt-3 space-y-2">
+<li><img alt="Light icon" class="inline-icon" src="images/light_cantrip.png"/>Light <span class="text-gray-400">(Cantrip)</span></li></ul>
+</article>
+</div>
+</section>
+<!-- 3rd Level -->
+<section class="anchor rounded-lg" id="pal-lvl3" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">3rd Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Radiant Smite</h3>
+<div class="text-gray-400"><em>Passive</em></div>
+<div class="mt-3">When you deal Radiant spell damage or use Channel Oath, you can cast Radiant Smite.</div>
+<div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Radiant Smite:</span><div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Bonus Action <img alt="Bonus Action" class="cost-icon" src="images/bonus_action.png"/><span class="meta-sep">|</span>1st Level Spell Slot <span class="slot-icons"><img alt="Spell Slot" class="cost-icon" src="images/Spell_Slot.png"/></span><span class="meta-sep">|</span>Ranged Spell Attack <img alt="Attack Roll" class="cost-icon" src="images/attack.png"/><span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span></em></div><div class="mt-2">Smite your foe from a distance with Advantage, dealing 4d4 radiant damage.<div class="mt-2"><span class="text-gray-400">Upcast:</span> Additional 2d4 radiant damage.</div></div></div></div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="radiant smite icon" class="object-contain" src="images/radiant_smite.png" style="width:224px;height:224px"/>
+</div>
+</article>
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Codemn</h3>
+<div class="text-gray-400">
+<em>Spell<span class="meta-sep">|</span>Action Point <img alt="Action Point" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Channel Oath <img alt="Channel Oath" class="cost-icon" src="images/Channel_Oath.png"/><span class="meta-sep">|</span>Charisma Save<span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span></em>
+</div>
+<div class="mt-3">Target foe is Vulnerable to radiant damage for 3 turns. Dealing more than 25 radiant damage in a single attack ends the effect. On a successful Charisma save, Codemn lasts until the start of your next turn.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Sunlance icon" class="object-contain" src="images/condemn.png" style="width:224px;height:224px"/>
+</div>
+</article>
+</section>
+<!-- 7th Level -->
+<section class="anchor rounded-lg" id="pal-lvl7" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">7th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Aura of Brilliance</h3>
+<div class="text-gray-400"><em>Aura<span class="range-radius-line"><span class="meta-sep">|</span>Radius 3 m<img alt="Radius" class="cost-icon" src="images/aoe.png"/></span></em></div>
+<div class="mt-3">The paladin and any nearby allies have a +2 Critical Spell Hit bonus. Nearby foes are Dazzled.</div>
+<div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Dazzled:</span> Overwhelmed with light, the range of attacks and spells reduced to 1.5m. Constitution save negates the effect for 1 turn.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Aura of Brilliance icon" class="object-contain" src="images/aura_of_brilliance.png" style="width:224px;height:224px"/>
+</div>
+</article>
+</div>
+</section>
+<!-- 11th Level -->
+<section class="anchor rounded-lg" id="pal-lvl11" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">11th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Improved Radiant Smite</h3>
+<div class="text-gray-400"><em>Passive</em></div>
+<div class="mt-3">When you deal Radiant spell damage, you deal an additional 2d4 radiant damage.</div>
+</div>
+</article>
+</div>
+</section>
+<!-- 15th Level -->
+<section class="anchor rounded-lg" id="pal-lvl15" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">15th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Bright Soul</h3>
+<div class="text-gray-400"><em>Passive</em></div>
+<div class="mt-3">The intensity of your spirit grows. You gain an additional use of Channel Oath and your Lay on Hands can now target allies 9m away.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Sunlance icon" class="object-contain" src="images/brightsoul.png" style="width:224px;height:224px"/>
+</div>
+</article>
+</div>
+</section>
+<!-- 20th Level -->
+<section class="anchor rounded-lg" id="pal-lvl20" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">20th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Dawnbringer</h3>
+<div class="text-gray-400"><em>Passive</em></div>
+<div class="mt-3 space-y-2">Your ascension is complete. You gain the following features:
+    <ul class="mt-2 list-disc pl-5">
+<li>You ignore Radiant resistance and treat immunity as resistance.</li>
+<li>You can cast Lay on Hands: Renewal.</li>
+<li>Your Aura of Brilliance now has a +2 Critical Spell Hit bonus and grants an additional two extra damage dice when scoring a Critical hit with Ranged Spell Attacks.</li>
+</ul></div>
+<div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)">
+<div class="font-semibold mb-1">Lay on Hands: Renewal</div>
+<div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>4 Lay On Hands charges<span class="range-radius-line"><span class="meta-sep">|</span>Range 9 m<img alt="Range" class="cost-icon" src="images/range.png"/></span></em></div>
+<div class="mt-2">Wash your target in divine light, healing them for 160 hitpoints and cleansing most conditions.</div>
+</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Dawnbringer icon" class="object-contain" src="images/dawnbringer.png" style="width:224px;height:224px"/>
+</div>
+</article>
+</div>
+</section>
+</section>
+</section>
+<!-- END PALADIN -->
+<!-- =================== DRUID – Circle of Wrath =================== -->
+<section class="grid grid-cols-12 gap-6 hidden" id="class-druid">
+<aside class="hidden lg:block col-span-12 lg:col-span-3 sticky-col">
+<div class="space-y-4">
+<div class="w-[min(100%,280px)] mx-auto text-center">
+<img alt="Circle of Wrath icon" class="object-contain mx-auto" src="images/CircleOfWrath.png" style="width:240px;height:240px"/>
+<h2 class="text-2xl font-semibold mt-3">Circle of Wrath</h2>
+<p class="text-gray-400 mt-3"><em>"When the wilds' very existence is threatened, some druids are called to become instruments of ruin."</em></p>
+</div>
+<div class="flex justify-center">
+<div class="rounded-lg" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<nav class="py-2" id="progressionNavDruid">
+<a class="block px-4 py-2 text-sm hover:bg-white/5 active" data-target="druid-lore" href="#druid-lore">Lore</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="druid-lvl2" href="#druid-lvl2">2nd Level - Subclass Selection</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="druid-lvl6" href="#druid-lvl6">6th Level</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="druid-lvl10" href="#druid-lvl10">10th Level</a>
+<a class="block px-4 py-2 text-sm hover:bg-white/5" data-target="druid-lvl14" href="#druid-lvl14">14th Level</a>
+</nav>
+</div>
+</div>
+</div>
+</aside>
+<section class="col-span-12 lg:col-span-9 flex flex-col gap-8" id="centerPanelDruid">
+<!-- LORE -->
+<section class="anchor rounded-lg" id="druid-lore" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">Lore</h2></header>
+<div class="p-6 text-lg text-gray-400 space-y-4">
+<p><em>"We did not know who would hear the heavenly call to battle and certainly did not expect the druids to leave their wards in search of valor. The land we came upon, however, had been ravaged by the demons pouring out from the wound and with such vile delight. After clearing out a village of demonspawn, we encountered a circle of druids offering their might as agents of nature's wrath. Any committed to the cause were welcome but no one had ever seen or heard of a druid circle with the spirit of destruction behind them and so we whispered and wondered.</em></p>
+<p><em>Perhaps perceiving our curiosity, their leader told tales of the aspects of wrath and the similarities to our own were staggering! Whatever names they had for these forces held no weight against the truest of their description: Kossuth, the blessed flame. Auril, the frozen death. Talos, the raging storm. Grumbar the might of force. I asked for a demonstration as I tend to do but she warned me against such a display; to summon the winds of destruction is to invite it within, to be consumed by the rage of the wild, only a last resort…</em></p>
+<p><em>They had come to the right place."</em></p>
+</div>
+</section>
+<!-- 2nd Level -->
+<section class="anchor rounded-lg" id="druid-lvl2" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">2nd Level – Subclass Selection</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Aspects of Wrath</h3>
+<div class="text-gray-400"><em>Wildshape<span class="meta-sep">|</span>Bonus Action <img alt="Bonus Action" class="cost-icon" src="images/bonus_action.png"/></em></div>
+<div class="mt-3">While in combat, assume an Aspect of Wrath and gain a cantrip that scales with druid levels but can be upcast with spell slots to gain additional effects. Each turn you are in an Aspect, you gain Wrath, which increases your spell damage by +1 per stack. You can maintain stacks of Wrath up to your Wisdom Modifier. You must cast an offensive spell within that Aspect's domain or take damage each turn otherwise your wrath will fade.</div>
+<div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Choose Two Aspects:</span></div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Aspects of Wrath icon" class="object-contain" src="images/aspects_wrath.png" style="width:224px;height:224px"/>
+</div>
+</article>
+<!-- Individual Aspect Cards -->
+<article class="rounded-md p-4" style="border:1px solid #22232b">
+<h3 class="font-semibold leading-tight text-[1.4rem]">Available Aspects</h3>
+<div class="mt-4 space-y-4">
+<div class="p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.1)">
+<h4 class="font-semibold"><img alt="Sunfire icon" class="inline-icon" src="images/sunfire.png"/>Sunfire</h4>
+<div class="text-gray-400"><em>Cantrip<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Ranged Spell Attack <img alt="Attack Roll" class="cost-icon" src="images/attack.png"/><span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span></em></div>
+<div class="mt-2"><strong>Aspect: Kossuth.</strong> Hurl a spark of radiant fire, dealing 1d4 Fire and 1d4 Radiant damage.</div>
+<div class="mt-1 text-gray-400"><strong>Upcast:</strong> Deal an additional 1d4 per element and inflict Burning in 2m radius.</div>
+</div>
+<div class="p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.1)">
+<h4 class="font-semibold"><img alt="Stormstrike icon" class="inline-icon" src="images/stormstrike.png"/>Stormstrike</h4>
+<div class="text-gray-400"><em>Cantrip<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Ranged Spell Attack <img alt="Attack Roll" class="cost-icon" src="images/attack.png"/><span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span></em></div>
+<div class="mt-2"><strong>Aspect: Talos.</strong> Hurl a bolt of stormstrike, dealing 1d4 Lightning and 1d4 Thunder damage.</div>
+<div class="mt-1 text-gray-400"><strong>Upcast:</strong> Deal an additional 1d4 per element and inflict Electrocute in 2m radius.</div>
+</div>
+<div class="p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.1)">
+<h4 class="font-semibold"><img alt="Icespike icon" class="inline-icon" src="images/icespike.png"/>Icespike</h4>
+<div class="text-gray-400"><em>Cantrip<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Ranged Spell Attack <img alt="Attack Roll" class="cost-icon" src="images/attack.png"/><span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span></em></div>
+<div class="mt-2"><strong>Aspect: Auril.</strong> Hurl a stalactite of razor ice, dealing 1d4 Cold and 1d4 Piercing damage.</div>
+<div class="mt-1 text-gray-400"><strong>Upcast:</strong> Deal an additional 1d4 per element and inflict Frostbite in 2m radius.</div>
+</div>
+<div class="p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.1)">
+<h4 class="font-semibold"><img alt="Kinetic Blast icon" class="inline-icon" src="images/kinetic_blast.png"/>Kinetic Blast</h4>
+<div class="text-gray-400"><em>Cantrip<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Ranged Spell Attack <img alt="Attack Roll" class="cost-icon" src="images/attack.png"/><span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span></em></div>
+<div class="mt-2"><strong>Aspect: Grumbar.</strong> Hurl blast of force, dealing 1d4 Force and 1d4 Bludgeoning damage.</div>
+<div class="mt-1 text-gray-400"><strong>Upcast:</strong> Deal an additional 1d4 per element and knock target back +1m per rank.</div>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- 6th Level -->
+<section class="anchor rounded-lg" id="druid-lvl6" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">6th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Revelations</h3>
+<div class="text-gray-400"><em>Passive</em></div>
+<div class="mt-3">When you assume an Aspect, you start with 2 stacks of Wrath. Each Aspect gains a Revelation which can be cast once per Wildshape. Revelations can be cast as cantrips and benefit from upcasting at Rank 3 and up.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Revelations icon" class="object-contain" src="images/revelations.png" style="width:224px;height:224px"/>
+</div>
+</article>
+<!-- Individual Revelation Cards -->
+<article class="rounded-md p-4" style="border:1px solid #22232b">
+<h3 class="font-semibold leading-tight text-[1.4rem]">Aspect Revelations</h3>
+<div class="mt-4 space-y-4">
+<div class="p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.1)">
+<h4 class="font-semibold">Consecrate Wrath</h4>
+<div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Charisma Save<span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span><span class="range-radius-line"><span class="meta-sep">|</span>Radius 6 m<img alt="Radius" class="cost-icon" src="images/aoe.png"/></span></em></div>
+<div class="mt-2"><strong>Aspect: Kossuth.</strong> Give Kossuth's blessing to the wildfire. All creatures in the area must make a Charisma saving throw or become blessed with Purified Flames for 2 turns. Creatures already Burning automatically fail this saving throw. If a creature is already Electrocuted, they are blessed with Purified Blue Flames instead.</div>
+<div class="mt-2 ml-4 text-sm">
+<div><span class="font-semibold">Purified Flames:</span> Take 2d8 Radiant and 2d8 Fire damage and ignite the surface in a 3m radius at the start of each turn.</div>
+<div><span class="font-semibold">Purified Blue Flames:</span> Take 2d8 Radiant, 2d8 Fire and 2d8 Lightning damage at the start of each turn.</div>
+</div>
+<div class="mt-1 text-gray-400"><strong>Upcast:</strong> Deal 2d8 Fire and 2d8 Radiant on hit, half on save. Increase radius and range.</div>
+</div>
+<div class="p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.1)">
+<h4 class="font-semibold">Surging Storm</h4>
+<div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Constitution Save<span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span><span class="range-radius-line"><span class="meta-sep">|</span>Radius 4 m<img alt="Radius" class="cost-icon" src="images/aoe.png"/></span></em></div>
+<div class="mt-2"><strong>Aspect: Talos.</strong> Electrify the air in a violent torrent, pulling creatures caught within to the center and leaving them Shocked on a failed save. A lingering cloud of static remains in the area for 2 turns.</div>
+<div class="mt-2 ml-4 text-sm">
+<div><span class="font-semibold">Shocked:</span> Cannot take reactions or use bonus actions, disadvantage on Dexterity saves and ability checks.</div>
+</div>
+<div class="mt-1 text-gray-400"><strong>Upcast:</strong> Deal 2d8 Lightning and 2d8 Thunder damage on hit, half on save. Increase radius, range and duration of the static cloud.</div>
+</div>
+<div class="p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.1)">
+<h4 class="font-semibold">Rime</h4>
+<div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Dexterity Save<span class="range-radius-line"><span class="meta-sep">|</span>Range 12 m<img alt="Range" class="cost-icon" src="images/range.png"/></span><span class="range-radius-line"><span class="meta-sep">|</span>Cone 45°<img alt="Cone" class="cost-icon" src="images/aoe.png"/></span></em></div>
+<div class="mt-2"><strong>Aspect: Auril.</strong> A frigid blast of winter air Freezes creatures and leaves an icy slick in its wake. On a successful save, they become Wet instead.</div>
+<div class="mt-1 text-gray-400"><strong>Upcast:</strong> Deal 2d8 Cold and 2d8 Piercing on hit, half on save. Increase range and width of the cone.</div>
+</div>
+<div class="p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.1)">
+<h4 class="font-semibold">Fulminate</h4>
+<div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Constitution Save<span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span><span class="range-radius-line"><span class="meta-sep">|</span>Radius 3 m<img alt="Radius" class="cost-icon" src="images/aoe.png"/></span></em></div>
+<div class="mt-2"><strong>Aspect: Grumbar.</strong> Create a sudden explosion at the target location, throwing nearby creatures 3m away and detonating any element status effects for 2d8 element + 2d8 force damage to all creatures within 3m.</div>
+<div class="mt-1 text-gray-400"><strong>Upcast:</strong> Deal 2d8 Force and 2d8 Thunder on hit, half on save. Increase range, radius and knockback.</div>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- 10th Level -->
+<section class="anchor rounded-lg" id="druid-lvl10" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">10th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Aspect Mastery</h3>
+<div class="text-gray-400"><em>Passive</em></div>
+<div class="mt-3">Choose an additional Aspect. While you channel an Aspect, you are immune to its related status effects.</div>
+<div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)">
+<div><span class="font-semibold">Kossuth:</span> Burning, Resistant to Fire</div>
+<div><span class="font-semibold">Talos:</span> Shocked and Electrocute</div>
+<div><span class="font-semibold">Auril:</span> Frozen, Chilled or Wet</div>
+<div><span class="font-semibold">Grumbar:</span> Grounded</div>
+</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Aspect Mastery icon" class="object-contain" src="images/aspect_mastery.png" style="width:224px;height:224px"/>
+</div>
+</article>
+</div>
+</section>
+<!-- 14th Level -->
+<section class="anchor rounded-lg" id="druid-lvl14" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
+<header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">14th Level</h2></header>
+<div class="p-4 space-y-6">
+<article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
+<div>
+<h3 class="font-semibold leading-tight text-[1.8rem]">Eye of the Storm</h3>
+<div class="text-gray-400"><em>Passive</em></div>
+<div class="mt-3">When you assume an Aspect, you start with 3 stacks of Wrath. Your elemental status immunities are now shared with allies within 9m and whenever your Wrath fades, you clear surfaces and clouds within 3m.</div>
+</div>
+<div class="hidden lg:flex items-start justify-end">
+<img alt="Eye of the Storm icon" class="object-contain" src="images/eye_storm.png" style="width:224px;height:224px"/>
+</div>
+</article>
+</div>
+</section>
+</section>
+</section>
+<!-- END DRUID -->
+</main>
+<script>
+// header CSS var
+const headerEl = document.getElementById('topHeader');
+function updateHeaderHeight(){ document.documentElement.style.setProperty('--header-h', headerEl.getBoundingClientRect().height + 'px'); }
+addEventListener('load', updateHeaderHeight); addEventListener('resize', updateHeaderHeight);
+
+// sections + crumb text
+const sections = {
+  monk: document.getElementById('class-monk'),
+  bard: document.getElementById('class-bard'),
+  paladin: document.getElementById('class-paladin'),
+  warlock: document.getElementById('class-warlock'),
+  druid: document.getElementById('class-druid')
+};
+const crumbEl = document.getElementById('crumb');
+const crumbs = {
+  monk: '<div class="flex items-center gap-3"><div class="text-xs uppercase tracking-wider text-gray-400">Class</div><div class="font-semibold">Monk</div><div class="opacity-50">/</div><div class="text-xs uppercase tracking-wider text-gray-400">Subclass</div><div class="font-semibold">Way of the Friar</div><span class="text-[11px] uppercase tracking-wide px-2 py-0.5 rounded" style="background:#c8a96a26;color:#c8a96a;border:1px solid #22232b">Selected</span></div>',
+  bard: '<div class="flex items-center gap-3"><div class="text-xs uppercase tracking-wider text-gray-400">Class</div><div class="font-semibold">Bard</div><div class="opacity-50">/</div><div class="text-xs uppercase tracking-wider text-gray-400">Subclass</div><div class="font-semibold">College of Stormcalling</div><span class="text-[11px] uppercase tracking-wide px-2 py-0.5 rounded" style="background:#c8a96a26;color:#c8a96a;border:1px solid #22232b">Selected</span></div>',
+  paladin: '<div class="flex items-center gap-3"><div class="text-xs uppercase tracking-wider text-gray-400">Class</div><div class="font-semibold">Paladin</div><div class="opacity-50">/</div><div class="text-xs uppercase tracking-wider text-gray-400">Subclass</div><div class="font-semibold">Oath of Illumination</div><span class="text-[11px] uppercase tracking-wide px-2 py-0.5 rounded" style="background:#c8a96a26;color:#c8a96a;border:1px solid #22232b">Selected</span></div>',
+  warlock: '<div class="flex items-center gap-3"><div class="text-xs uppercase tracking-wider text-gray-400">Class</div><div class="font-semibold">Warlock</div><div class="opacity-50">/</div><div class="text-xs uppercase tracking-wider text-gray-400">Subclass</div><div class="font-semibold">The Psyker</div><span class="text-[11px] uppercase tracking-wide px-2 py-0.5 rounded" style="background:#c8a96a26;color:#c8a96a;border:1px solid #22232b">Selected</span></div>',
+  druid: '<div class="flex items-center gap-3"><div class="text-xs uppercase tracking-wider text-gray-400">Class</div><div class="font-semibold">Druid</div><div class="opacity-50">/</div><div class="text-xs uppercase tracking-wider text-gray-400">Subclass</div><div class="font-semibold">Circle of Wrath</div><span class="text-[11px] uppercase tracking-wide px-2 py-0.5 rounded" style="background:#c8a96a26;color:#c8a96a;border:1px solid #22232b">Selected</span></div>'
+};
+
+function showClass(key, initial=false){
+  Object.keys(sections).forEach(k => sections[k].classList.toggle('hidden', k!==key));
+  document.querySelectorAll('.classBtn').forEach(btn => btn.classList.toggle('selected', btn.getAttribute('data-class')===key));
+  crumbEl.innerHTML = crumbs[key] || '';
+  wireLeftHighlight(key);
+  if(!initial){ window.scrollTo({top:0, behavior:'smooth'}); history.replaceState(null,'', '#class-'+key); }
+}
+document.querySelectorAll('.classBtn[data-class]').forEach(btn => btn.addEventListener('click', ()=> showClass(btn.getAttribute('data-class'))));
+
+// ids for left index highlight per class
+function idsFor(cls){
+  if(cls==='bard') return ['bard-lore','bard-lvl3','bard-lvl6','bard-lvl14'];
+  if(cls==='paladin') return ['pal-lore','pal-lvl1','pal-lvl3','pal-lvl7','pal-lvl11','pal-lvl15','pal-lvl20'];
+  if(cls==='warlock') return ['warlock-lore','warlock-lvl1','warlock-lvl6','warlock-lvl10','warlock-lvl14'];
+  if(cls==='druid') return ['druid-lore','druid-lvl2','druid-lvl6','druid-lvl10','druid-lvl14'];
+  return ['monk-lore','monk-lvl3','monk-lvl6','monk-lvl9','monk-lvl11','monk-lvl17'];
+}
+function wireLeftHighlight(cls){
+  const navSel = cls==='bard' ? '#progressionNavBard' : 
+                  (cls==='paladin' ? '#progressionNavPaladin' : 
+                  (cls==='warlock' ? '#progressionNavWarlock' : 
+                  (cls==='druid' ? '#progressionNavDruid' : '#progressionNavMonk')));
+  const nav = document.querySelector(navSel);
+  if(!nav) return;
+  const links = Array.from(nav.querySelectorAll('a'));
+  links.forEach(a => { a.onclick = (e)=>{ e.preventDefault(); document.getElementById(a.dataset.target)?.scrollIntoView({behavior:'smooth', block:'start'}); }; });
+  const ids = idsFor(cls);
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const id = entry.target.id;
+        links.forEach(a=> a.classList.toggle('active', a.getAttribute('data-target')===id));
+      }
+    });
+  }, { root:null, rootMargin: `-${headerEl.getBoundingClientRect().height + 24}px 0px -60% 0px`, threshold: 0.01 });
+  ids.forEach(id=>{ const el = document.getElementById(id); if(el) observer.observe(el); });
+}
+
+// init
+const initKey = (location.hash && /class-(bard|paladin|warlock|druid)/.test(location.hash)) ? location.hash.replace('#class-','') : 'monk';
+showClass(initKey, true);
+
+// Friar's Bond variants
+(function initBond(){
+  const copy = {
+    bless: "<b>Friar's Blessing:</b> Gain +1d4 to your Attack Rolls and Saving Throws.",
+    valor: "<b>Friar's Valor:</b> Deal an additional 1d4 radiant damage on weapon attacks.",
+    retribution: "<b>Friar's Retribution:</b> Deal twice your Wisdom Modifier radiant damage in retaliation to any attack.",
+    faith: "<b>Friar's Faith:</b> Gain +1 AC.",
+  };
+  const row = document.getElementById('bondRow');
+  const detail = document.getElementById('bondDetail');
+  if(row && detail){
+    const btns = Array.from(row.querySelectorAll('.bondBtn'));
+    btns.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        btns.forEach(b=>{ b.classList.remove('outline'); b.setAttribute('aria-pressed','false'); });
+        btn.classList.add('outline'); btn.setAttribute('aria-pressed','true');
+        detail.style.display='block';
+        detail.innerHTML = copy[btn.dataset.key] || "";
+      });
+    });
+    if(btns.length) btns[0].click();
+  }
+})();
+</script>
+</body>
+</html>
