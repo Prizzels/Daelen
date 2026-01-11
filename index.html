@@ -1946,9 +1946,7 @@ nav a.active { background:#1a1b22; color:#fff; }
     <section class="anchor rounded-lg" id="sorcerer-lore" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
       <header class="px-4 py-3 border-b" style="border-color:#22232b"><h2 class="text-xl font-semibold">Lore</h2></header>
       <div class="p-6 text-lg text-gray-400 space-y-4">
-        <p><em>"Not long after the battle had ended, I was summoned to observe the questioning of a warlock we had taken alive. He was one of those wielding a power unknown to us, a force that bent past our strongest wards as if they were cobwebs. Our clerics could not pierce his thoughts, nor could the magi hold his gaze for long—madness curled into their minds like smoke, forcing them to look away."</em></p>
-        <p><em>"I chose another path. I spoke with him not as a captor, but as a scholar. At first his words were halting, as if weighed down by exhaustion, but before long he poured out his tale. He spoke of walking the edge of oblivion, of the great lighthouse in the dark he only knew by its luster. Each time he called upon that beacon, it demanded more from him—mind, body, spirit alike—until his voice shook with equal parts reverence and torment."</em></p>
-        <p><em>"As he raved, his eyes shone with that same lightless malevolence I had glimpsed on the field. His words quickened, frayed at the edges, and then—without warning—his form erupted in a pillar of unholy flame. We staggered back, blinded and horrified, as he was consumed before us. I was left aghast, my heart thundering with one question only: what power had we truly come against?"</em></p>
+        <p><em>"Wither and decay<br>A tainted soul does provide<br>A cascading death</em></p>
       </div>
     </section>
     <!-- 1st Level -->
@@ -1963,9 +1961,9 @@ nav a.active { background:#1a1b22; color:#fff; }
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Wither and Decay icon" class="object-contain" src="images/wither_and_decay.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">Your spells seep with corruption, twisting their nature. Dealing Poison damage with spells curses the target with <strong>Wither</strong>. Dealing Acid damage with spells curses the target with <strong>Decay</strong>. Both effects deal 1d4 necrotic damage that cannot be reduced by any means, increasing to 1d6 at level 11 and 1d8 at level 17.</div>
-            <div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Wither:</span> Suffers Disadvantage on Attack Rolls and Ability Checks.</div>
-            <div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Decay:</span> Armor Class reduced by 2.</div>
+            <div class="mt-3">Your spells seep with corruption, twisting their nature. Dealing Poison damage with spells curses the target with <strong>Decay</strong>. Dealing Acid damage with spells curses the target with <strong>Wither</strong>. Both effects deal 1d4 necrotic damage that cannot be reduced by any means, increasing to 1d6 at level 11 and 1d8 at level 17. Creatures can make a Charisma save each turn to end the curse.</div>
+            <div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Decay:</span> Suffers Disadvantage on Attack Rolls and Ability Checks.</div>
+            <div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Wither:</span> Armor Class reduced by 2.</div>
           </div>
           <div class="card-icon">
             <img alt="Wither and Decay icon" class="object-contain" src="images/wither_and_decay.png"/>
@@ -2007,7 +2005,7 @@ nav a.active { background:#1a1b22; color:#fff; }
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Vile Afflictions icon" class="object-contain" src="images/vile_afflictions.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">Poison damage you deal pierces Resistance and treats immunity as Resistance. Add your Intelligence modifier when you deal damage with Wither or Decay.</div>
+            <div class="mt-3">You can spend 1 Sorcery Point to make your next Poison spell to pierce Resistance and Immunity. Add your Intelligence modifier when you deal damage with <strong>Wither</strong> or <strong>Decay</strong.</div>
           </div>
           <div class="card-icon">
             <img alt="Vile Afflictions icon" class="object-contain" src="images/vile_afflictions.png"/>
@@ -2042,12 +2040,12 @@ nav a.active { background:#1a1b22; color:#fff; }
         <!-- Death Nova -->
         <article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
           <div>
-            <h3 class="font-semibold leading-tight text-[1.8rem]">Death Nova</h3>
-            <div class="text-gray-400"><em>Reaction <img alt="Reaction" class="cost-icon" src="images/reaction.png"/><span class="meta-sep">|</span>3 Sorcery Points<span class="meta-sep">|</span>Radius 6 m<img alt="Radius" class="cost-icon" src="images/aoe.png"/></em></div>
+            <h3 class="font-semibold leading-tight text-[1.8rem]">Epidemic</h3>
+            <div class="text-gray-400"><em><span class="meta-sep">|</span>2 Sorcery Points<img alt="3 Sorcery Points" class="cost-icon" src="images/sorcery_point.png"/><span class="meta-sep">|</span>Radius 6 m<img alt="Radius" class="cost-icon" src="images/aoe.png"/></em></div>
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Death Nova icon" class="object-contain" src="images/death_nova.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">When a creature cursed with Wither or Decay dies, you can use your reaction to trigger a Death Nova, dealing 6d6 necrotic damage that cannot be reduced or resisted, half on a Constitution save. Death Nova spreads Wither and Decay to any foes within its effect. Allies always save against this spell.</div>
+            <div class="mt-3">When a creature cursed with <strong>Wither</strong> or <strong>Decay</strong> dies, you can use 2 Sorcery Points to trigger a death nova, dealing 6d6 necrotic damage that cannot be reduced or resisted, half on a Constitution save. Epidemic spreads Wither and Decay to any foes within its effect. Allies always save against this spell.</div>
           </div>
           <div class="card-icon">
             <img alt="Death Nova icon" class="object-contain" src="images/death_nova.png"/>
