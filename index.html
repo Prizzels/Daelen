@@ -857,7 +857,7 @@ nav a.active { background:#1a1b22; color:#fff; }
 <div>
 <h3 class="font-semibold leading-tight text-[1.8rem]">Aura of Brilliance</h3>
 <div class="text-gray-400"><em>Aura<span class="range-radius-line"><span class="meta-sep">|</span>Radius 3 m<img alt="Radius" class="cost-icon" src="images/aoe.png"/></span></em></div>
-<div class="mt-3">The paladin and any nearby allies have a +2 Critical Spell Hit bonus. Nearby foes are Dazzled.</div>
+<div class="mt-3">The number that the paladin and nearby allies need to roll to score a critical hit with spells is reduced by 2. Nearby foes are Dazzled.</div>
 <div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Dazzled:</span> Overwhelmed with light, the range of attacks and spells reduced to 1.5m. Constitution save negates the effect for 1 turn.</div>
 </div>
 <div class="card-icon">
@@ -1020,7 +1020,7 @@ nav a.active { background:#1a1b22; color:#fff; }
 <div>
 <h3 class="font-semibold leading-tight text-[1.8rem]">Revelations</h3>
 <div class="text-gray-400"><em>Passive</em></div>
-            <div class="mt-3">When you assume an Aspect, you start with 2 stacks of Wrath. Each Aspect gains a Revelation which can be cast once per Wildshape. Revelations can be cast as cantrips and benefit from upcasting at Rank 3 and up.</div>
+            <div class="mt-3">When you assume an Aspect, you start with 2 stacks of Wrath. Each Aspect gains a Revelation which can be cast once per Wildshape. Revelations can be upcast to increase their radius with no added cost and they consume all remaining Wrath to deal additional damage per stack. This damage bonus increases by one step (d6/d8) at level 11 and 17.</div>
             <!-- Revelation preview panel -->
             <div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)">
               <span class="font-semibold">Aspect Revelations:</span> Select a Revelation below to view its details.
@@ -1044,33 +1044,33 @@ nav a.active { background:#1a1b22; color:#fff; }
 <div class="p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.1)">
 <h4 class="font-semibold"><img alt="Consecrate Wrath icon" class="inline-icon" src="images/consecrate_wrath.png"/>Consecrate Wrath</h4>
 <div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Charisma Save<span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span><span class="range-radius-line"><span class="meta-sep">|</span>Radius 6 m<img alt="Radius" class="cost-icon" src="images/aoe.png"/></span></em></div>
-<div class="mt-2"><strong>Aspect: Kossuth.</strong> Give Kossuth's blessing to the wildfire. All creatures in the area must make a Charisma saving throw or become blessed with Purified Flames for 2 turns. Creatures already Burning automatically fail this saving throw. If a creature is already Electrocuted, they are blessed with Purified Blue Flames instead.</div>
+<div class="mt-2"><strong>Aspect: Kossuth.</strong> Give Kossuth's blessing to the wildfire. All creatures in the area must make a Charisma saving throw or become blessed with Purified Flames for 2 turns. If a creature is already Electrocuted, they are blessed with Purified Blue Flames instead. Creatures already Burning or Electrocuted always fail their saving throw.</div>
 <div class="mt-2 ml-4 text-sm">
 <div><span class="font-semibold">Purified Flames:</span> Take 2d8 Radiant and 2d8 Fire damage and ignite the surface in a 3m radius at the start of each turn.</div>
 <div><span class="font-semibold">Purified Blue Flames:</span> Take 2d8 Radiant, 2d8 Fire and 2d8 Lightning damage at the start of each turn.</div>
 </div>
-<div class="mt-1 text-gray-400"><strong>Upcast:</strong> Deal 2d8 Fire and 2d8 Radiant on hit, half on save. Increase radius and range.</div>
+<div class="mt-1 text-gray-400"><strong>Wrath:</strong> Deal an additional 1d4 Radiant and 1d4 Fire damaage per stack of Wrath</div>
 </div>
 <div class="p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.1)">
 <h4 class="font-semibold"><img alt="Surging Storm icon" class="inline-icon" src="images/surging_storm.png"/>Surging Storm</h4>
 <div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Constitution Save<span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span><span class="range-radius-line"><span class="meta-sep">|</span>Radius 4 m<img alt="Radius" class="cost-icon" src="images/aoe.png"/></span></em></div>
-<div class="mt-2"><strong>Aspect: Talos.</strong> Electrify the air in a violent torrent, pulling creatures caught within to the center and leaving them Shocked on a failed save. A lingering cloud of static remains in the area for 2 turns.</div>
+<div class="mt-2"><strong>Aspect: Talos.</strong> Electrify the air in a violent torrent, dealing 2d8 Lightning + 2d8 Thunder damage and pulling creatures caught within to the center, leaving them Shocked on a failed save. A lingering cloud of static remains in the area for 2 turns.</div>
 <div class="mt-2 ml-4 text-sm">
 <div><span class="font-semibold">Shocked:</span> Cannot take reactions or use bonus actions, disadvantage on Dexterity saves and ability checks.</div>
 </div>
-<div class="mt-1 text-gray-400"><strong>Upcast:</strong> Deal 2d8 Lightning and 2d8 Thunder damage on hit, half on save. Increase radius, range and duration of the static cloud.</div>
+<div class="mt-1 text-gray-400"><strong>Wrath:</strong> Deal an additional 1d4 Lightning and 1d4 Thunder damaage per stack of Wrath</div>
 </div>
 <div class="p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.1)">
 <h4 class="font-semibold"><img alt="Rime icon" class="inline-icon" src="images/rime.png"/>Rime</h4>
 <div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Dexterity Save<span class="range-radius-line"><span class="meta-sep">|</span>Range 12 m<img alt="Range" class="cost-icon" src="images/range.png"/></span><span class="range-radius-line"><span class="meta-sep">|</span>Cone 45°<img alt="Cone" class="cost-icon" src="images/aoe.png"/></span></em></div>
-<div class="mt-2"><strong>Aspect: Auril.</strong> A frigid blast of winter air Freezes creatures and leaves an icy slick in its wake. On a successful save, they become Wet instead.</div>
-<div class="mt-1 text-gray-400"><strong>Upcast:</strong> Deal 2d8 Cold and 2d8 Piercing on hit, half on save. Increase range and width of the cone.</div>
+<div class="mt-2"><strong>Aspect: Auril.</strong> A frigid blast of winter air damages creatures struck for 2d8 Cold + 2d8 Piercing damage, Freezing them. On a successful save, they become Wet instead. Rime leaves a slick patch of ice in its wake</div>
+<div class="mt-1 text-gray-400"><strong>Wrath:</strong> Deal an additional 1d4 Cold and 1d4 Piercing damaage per stack of Wrath</div>
 </div>
 <div class="p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.1)">
 <h4 class="font-semibold"><img alt="Fulminate icon" class="inline-icon" src="images/fulminate.png"/>Fulminate</h4>
 <div class="text-gray-400"><em>Spell<span class="meta-sep">|</span>Action <img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Constitution Save<span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span><span class="range-radius-line"><span class="meta-sep">|</span>Radius 3 m<img alt="Radius" class="cost-icon" src="images/aoe.png"/></span></em></div>
-<div class="mt-2"><strong>Aspect: Grumbar.</strong> Create a sudden explosion at the target location, throwing nearby creatures 3m away and detonating any element status effects for 2d8 element + 2d8 force damage to all creatures within 3m.</div>
-<div class="mt-1 text-gray-400"><strong>Upcast:</strong> Deal 2d8 Force and 2d8 Thunder on hit, half on save. Increase range, radius and knockback.</div>
+<div class="mt-2"><strong>Aspect: Grumbar.</strong> Create a sudden explosion at the target location, dealing 2d8 Force + 2d8 Bludgeoning damage and throwing nearby creatures 3m away. Any elemental status effects are detonated for an additional 2d8 element + 2d8 force damage to all creatures within 3m.</div>
+<div class="mt-1 text-gray-400"><strong>Wrath:</strong> Deal 1d4 Force and 1d4 Bludgeoning damage per stack of Wrath</div>
 </div>
 </div>
 </article>
@@ -1084,12 +1084,12 @@ nav a.active { background:#1a1b22; color:#fff; }
 <div>
 <h3 class="font-semibold leading-tight text-[1.8rem]">Aspect Mastery</h3>
 <div class="text-gray-400"><em>Passive</em></div>
-<div class="mt-3">Choose an additional Aspect. While you channel an Aspect, you are immune to its related status effects.</div>
+<div class="mt-3">Choose an additional Aspect. While you channel an Aspect, you are immune to its related status effects. </div>
 <div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)">
-<div><span class="font-semibold">Kossuth:</span> Burning, Resistant to Fire</div>
-<div><span class="font-semibold">Talos:</span> Shocked and Electrocute</div>
+<div><span class="font-semibold">Kossuth:</span> Burning, Holy Fire</div>
+<div><span class="font-semibold">Talos:</span> Shocked, Electrocuted</div>
 <div><span class="font-semibold">Auril:</span> Frozen, Chilled or Wet</div>
-<div><span class="font-semibold">Grumbar:</span> Grounded</div>
+<div><span class="font-semibold">Grumbar:</span> Cannot be moved or Proned</div>
 </div>
 </div>
 <div class="card-icon">
@@ -1458,7 +1458,7 @@ nav a.active { background:#1a1b22; color:#fff; }
   <section class="col-span-12 lg:col-span-9 flex flex-col gap-8" id="centerPanelWizard">
     <!-- Mobile subclass icon for School of Bombardment -->
     <div class="lg:hidden flex justify-center mb-4">
-      <img alt="School of Bombardment icon" class="object-contain" src="images/SchoolOfBombardment.png" style="width:160px;height:160px"/>
+      <img alt="School of Bombardment icon" class="object-contain" src="images/BombardSchool.png" style="width:160px;height:160px"/>
     </div>
     <!-- LORE -->
     <section class="anchor rounded-lg" id="wizard-lore" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
@@ -1527,7 +1527,7 @@ nav a.active { background:#1a1b22; color:#fff; }
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Salvo icon" class="object-contain" src="images/salvo.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">Your next Arcane Ordnance attack fires two projectiles, has 50% more range and costs additional ammo. Firing a Salvo uses your Bonus Action.</div>
+            <div class="mt-3">You can use your bonus action to prime your next Arcane Ordnance to attack fires two projectiles, have 50% more range and cost additional ammo. </div>
           </div>
           <div class="card-icon">
             <img alt="Salvo icon" class="object-contain" src="images/salvo.png"/>
@@ -1563,7 +1563,7 @@ nav a.active { background:#1a1b22; color:#fff; }
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Barrage icon" class="object-contain" src="images/barrage.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">Your next Arcane Ordnance attack fires three projectiles, has 50% more range and costs additional ammo. Firing a Barrage uses your Bonus Action and at least 9&nbsp;m of movement.</div>
+            <div class="mt-3">You can use your bonus action and at least 9m of movement to prime your next Arcane Ordnance attack to fire three projectiles, have 50% more range and cost additional ammo.</div>
           </div>
           <div class="card-icon">
             <img alt="Barrage icon" class="object-contain" src="images/barrage.png"/>
@@ -1705,7 +1705,7 @@ nav a.active { background:#1a1b22; color:#fff; }
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Haunt icon" class="object-contain" src="images/haunt.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">Overwhelm a creature’s every instinct, forcing them to attack you and gaining Resistance to any damage they deal. Once Haunted, they remain so until they die or your rage ends. If a Haunted foe dies, you can recast Haunt as a free action.</div>
+            <div class="mt-3">Overwhelm a creature’s every instinct, causing their attacks to be made at Disadvantage unless targetting you and gaining Resistance to any damage they deal. Once Haunted, they remain so until they die or your rage ends. If a Haunted foe dies, you can recast Haunt as a free action.</div>
           </div>
           <div class="card-icon">
             <img alt="Haunt icon" class="object-contain" src="images/haunt.png"/>
@@ -1725,7 +1725,7 @@ nav a.active { background:#1a1b22; color:#fff; }
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Gravemarch icon" class="object-contain" src="images/gravemarch.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">Each time your Haunted foe dies you gain maximum hitpoints equal to your Proficiency Bonus plus your Constitution modifier and increase one category of size. Additional stacks increase maximum hitpoints only. If you try to Haunt a foe with Legendary Resistance, you gain additional damage reduction equal to your Rage modifier.</div>
+            <div class="mt-3">Each time your Haunted foe dies you gain maximum hitpoints equal to your Proficiency Bonus plus your Constitution modifier and increase one category of size. Additional stacks increase maximum hitpoints only. Gain your Rage modifier as Spell DC each time Haunt is saved against until it succeeds.</div>
           </div>
           <div class="card-icon">
             <img alt="Gravemarch icon" class="object-contain" src="images/gravemarch.png"/>
@@ -1817,7 +1817,7 @@ nav a.active { background:#1a1b22; color:#fff; }
         <article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
           <div>
             <h3 class="font-semibold leading-tight text-[1.8rem]">Borrowed Time</h3>
-            <div class="text-gray-400"><em>Sorcery Point<span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></em></div>
+            <div class="text-gray-400"><em>Sorcery Point<img alt="3 Sorcery Points" class="cost-icon" src="images/sorcery_point.png"/><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></em></div>
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Borrowed Time icon" class="object-contain" src="images/borrowed_time.png" style="width:112px;height:112px"/>
             </div>
