@@ -1253,15 +1253,22 @@ nav a.active { background:#1a1b22; color:#fff; }
             <img alt="Zeal icon" class="object-contain" src="images/zeal.png"/>
           </div>
         </article>
-        <article class="rounded-md p-4" style="border:1px solid #22232b">
+      <article class="rounded-md p-4" style="border:1px solid #22232b">
           <h3 class="font-semibold leading-tight text-[1.4rem]">Additional Spells Known</h3>
-          <ul class="mt-3 space-y-2">
-            <li>Rank 1, L3 – Divine Favour, Bless</li>
-            <li>Rank 2, L5 – Branding Smite, Misty Step</li>
-            <li>Rank 3, L9 – Daylight, Crusader's Mantle</li>
-            <li>Rank 4, L13 – Freedom of Movement, Death Ward</li>
-            <li>Rank 5, L17 – Holy Weapon, Greater Restoration</li>
-          </ul>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left mt-3" style="border-collapse:separate;border-spacing:5px;">
+              <thead>
+                <tr><th class="text-gray-400">Level</th><th class="text-gray-400">Rank</th><th class="text-gray-400">Spells</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>3</td><td>1</td><td><img alt="Deep Slumber icon" class="inline-icon" src="images/divine_favour.png"/>Divine Favour, <img alt="Dissonant Whispers icon" class="inline-icon" src="images/bless.png"/>Bless</td></tr>
+                <tr><td>5</td><td>2</td><td><img alt="Calm Emotions icon" class="inline-icon" src="images/branding_smite.png"/>Branding Smite, <img alt="Phantasmal Force icon" class="inline-icon" src="images/aid.png"/>Aid</td></tr>
+                <tr><td>9</td><td>3</td><td><img alt="Hypnotic Pattern icon" class="inline-icon" src="images/daylight.png"/>Daylight, <img alt="Fear icon" class="inline-icon" src="images/crusaders_mantle.png"/>Crusader's Mantle</td></tr>
+                <tr><td>13</td><td>4</td><td><img alt="Confusion icon" class="inline-icon" src="images/freedom_movement.png"/>Freedom of Movement, <img alt="Phantasmal Killer icon" class="inline-icon" src="images/death_ward.png"/>Death Ward</td></tr>
+                <tr><td>17</td><td>5</td><td><img alt="Synaptic Static icon" class="inline-icon" src="images/holy_weapon.png"/>Holy Weapon, <img alt="Dream icon" class="inline-icon" src="images/greater_restoration.png"/>Greater Restoration</td></tr>
+              </tbody>
+            </table>
+          </div>
         </article>
       </div>
     </section>
