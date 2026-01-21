@@ -558,8 +558,8 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
 <article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
 <div>
 <h3 class="font-semibold leading-tight text-[1.8rem]">Pacifying Sweep</h3>
-<div class="text-gray-400"><em>Melee Attack<img alt="Melee" class="cost-icon" src="images/melee.png"/><span class="meta-sep">|</span>Action<img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>2 Ki Points <img alt="Ki Points" class="cost-icon" src="images/ki_point.png"/><span class="meta-sep">|</span>Wisdom Save</em></div>
-<div class="mt-3">Sweep your staff in a wide arc, striking all foes within and knocking them back 2.5m. On a failed Wisdom save, they become Pacified for 1 turn and are unable to take actions unless damaged.</div>
+<div class="text-gray-400"><em>Melee Attack<img alt="Melee" class="cost-icon" src="images/melee.png"/><span class="meta-sep">|</span>Action<img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>2 Ki Points <img alt="Ki Points" class="cost-icon" src="images/ki_point.png"/><span class="meta-sep">|</span>Strength/Wisdom Save</em></div>
+<div class="mt-3">Sweep your staff in a wide arc, striking all foes within and knocking them back 3m on a failed Strength save. On a failed Wisdom save, they become Pacified until the end of their next turn and are unable to take actions unless damaged.</div>
 </div>
 <div class="card-icon">
 <img alt="Guiding Strike icon" class="object-contain" src="images/pacifying_sweep.png"/>
@@ -662,7 +662,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
 <div>
 <h3 class="font-semibold leading-tight text-[1.8rem]">Chorus of Thunder</h3>
 <div class="text-gray-400"><em>Passive Toggle<span class="meta-sep">|</span>1 Bardic Inspiration <img alt="1 Bardic Inspiration" class="cost-icon" src="images/bardic_inspiration.png"/></em></div>
-<div class="mt-3">Your next Thunder damage spell is empowered by your booming voice. Creatures must make a Constitution Saving Throw or suffer from Concussion for 1 turn.</div>
+<div class="mt-3">Your next Thunder damage spell is empowered by your booming voice. Creatures must make a Constitution saving throw or suffer from Concussion for 1 turn.</div>
 <div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Concussion:</span> Knocked prone, can't take reactions and can only make one attack, action or bonus action.</div>
 </div>
 <div class="card-icon">
@@ -711,7 +711,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
           </em>
         </div>
         <div class="text-gray-400 mt-1"><em>Duration: Concentration, 10 turns</em></div>
-        <div class="mt-3">Strike a target creature for 3d8 lightning damage. While concentrating, you can use your bonus action to cast Staccato Lightning.</div>
+        <div class="mt-3">Strike a target creature for 3d6 lightning damage, Shocking them for 2 turns. While concentrating, you can use your bonus action to cast Staccato Lightning.</div>
         <div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)">
           <div><span class="font-semibold">Upcast</span> Increase damage by 1d6</div>
         </div>
@@ -729,7 +729,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
               </span>
             </em>
           </div>
-          <div class="mt-2">Strike a target creature for 2d8 lightning damage. If the target is suffering from an electrical or concussive status, add your Charisma modifier to the damage dealt.</div>
+          <div class="mt-2">Strike a target creature for 2d6 lightning damage. If the target is suffering from an electrical or concussive status, add your Charisma modifier to the damage dealt.</div>
         </div>
       </div>
       <div class="card-icon">
@@ -761,13 +761,13 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
           </em>
         </div>
         <div class="mt-3">
-          Your tremendous aria electrifies the air, raining down lightning strikes on all creatures in the area, dealing 3d6 lightning damage and electrocuting foes while Electrifying allies.
+          Your tremendous aria resonates in the air, raining down brilliants bolts dealing 3d6 lightning damage to foes and Electrifying all creatures caught within.
           <br><br>
           At the start of each of the next 10 turns, the aria repeats until you end it with a Finale!
         </div>
         <div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)">
           <div><span class="font-semibold">Upcast:</span> Increase damage by 1d6</div>
-         <div><span class="font-semibold">Electrified (Status)</span> Take 1d4 Lightning damage a turn and reduce the number you need to roll a critical strike by 1.</div>
+         <div><span class="font-semibold">Electrified (Status)</span> Take 1d4 Lightning damage a turn. <br>Allies have the number you need to roll a critical strike by reduced by 1. <br>Foes have their Constitution save reduced by 1 per turn of duration remaining</div>
         </div>
         <div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)">
           <span class="font-semibold">Finale!</span>
@@ -777,12 +777,12 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
               <img alt="Action" class="cost-icon" src="images/action.png"/>
               <span class="meta-sep">|</span>Constitution Save
               <span class="range-radius-line">
-                <span class="meta-sep">|</span>Radius 12 m
+                <span class="meta-sep">|</span>Radius 18 m
                 <img alt="Radius" class="cost-icon" src="images/aoe.png"/>
               </span>
             </em>
           </div>
-          <div class="mt-2">Unleash a thunderous finale, stunning all hostile creatures on a failed Constitution save and ending your aria.</div>
+          <div class="mt-2">Unleash a thunderous finale, stunning all nearby Electrified foes on a failed Constitution save and ending your aria.<br><Br>The radius is increased by your Charisma modifier.</div>
         </div>
       </div>
       <div class="card-icon">
@@ -836,7 +836,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
 <div>
 <h3 class="font-semibold leading-tight text-[1.8rem]">Warp Wielder</h3>
 <div class="text-gray-400"><em>Passive Toggle</em></div>
-<div class="mt-3">When you deal damage with <i>Eldritch Blast</i>, you curse the target with <i>Warp</i> for 2 turns. Additional Eldritch Blast strikes or Warp detonations against Warped creatures reduces the remaining duration by 1.</div>
+<div class="mt-3">When you deal damage with <i>Eldritch Blast</i>, you curse the target with <i>Warp</i> for 2 turns. Additional Eldritch Blast strikes or Warp detonations reduce the remaining duration by 1.</div>
 <div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Warp (Status)</span> When Warp ends, it detonates for 1d10 Force damage to all foes within 3m. Damage increases by 1d10 at level 5, 11, 17.</div>
 </div>
 <div class="card-icon">
@@ -968,7 +968,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
 <div>
 <h3 class="font-semibold leading-tight text-[1.8rem]">Sunlance</h3>
 <div class="text-gray-400"><em>Cantrip<span class="meta-sep">|</span>Action<img alt="Action" class="cost-icon" src="images/action.png"/><span class="meta-sep">|</span>Ranged Spell Attack <img alt="Attack Roll" class="cost-icon" src="images/attack.png"/><span class="range-radius-line"><span class="meta-sep">|</span>Range 18 m<img alt="Range" class="cost-icon" src="images/range.png"/></span><span class="range-radius-line"><span class="meta-sep">|</span>Radius 1 m<img alt="Radius" class="cost-icon" src="images/aoe.png"/></span></em></div>
-<div class="mt-3">Strike a target location with a lance of light dealing 1d8 radiant damage. Deals an additional 1d4 radiant damage against Fiends and Undead.</div>
+<div class="mt-3">Strike a target location with a lance of light dealing 2d4 radiant damage. Deals an additional 1d4 radiant damage against Fiends and Undead.</div>
 </div>
 <div class="card-icon">
 <img alt="Sunlance icon" class="object-contain" src="images/sunlance.png"/>
@@ -1305,7 +1305,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
     </div>
     <!-- Lore -->
     <section class="anchor rounded-lg" id="rang-lore" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
-      <div class="p-6 text-lg text-gray-400 space-y-4"><em>"Empowered by Lathander's light, you fight for those who cannot, kindled by a relentless zeal for what you know is right."</em>
+      <div class="p-6 text-lg text-gray-400 space-y-4"><em>"Invigorated by Lathander's light, you soar across the battlefield with a relentless zeal and divine rapidity."</em>
     </section>
     <!-- 3rd Level - Subclass Selection -->
     <section class="anchor rounded-lg" id="rang-lvl3" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
@@ -1331,7 +1331,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Zeal icon" class="object-contain" src="images/zeal.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">Your fervor becomes frenzy. Each time you make an attack, gain one stack of Zeal (gain 2 stacks if using a Two&nbsp;Handed weapon). When you reach 7 stacks, Zeal ends and you gain an Extra Attack.</div>
+            <div class="mt-3">Your fervor becomes frenzy. Each time you make an attack, gain one stack of Zeal (gain 2 stacks if using a two handed weapon). When you reach 7 stacks, Zeal ends and you gain an Extra Attack.</div>
           </div>
           <div class="card-icon">
             <img alt="Zeal icon" class="object-contain" src="images/zeal.png"/>
@@ -1387,8 +1387,8 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Divine Flurry icon" class="object-contain" src="images/divine_flurry.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">Anchor yourself in place and unleash a rapid assault of 5 Extra Attacks. While Divine Flurry is active, the number you need to score a critical hit with weapon attacks is reduced by 2. When Divine Flurry ends, you become <b>Faded</b> until the end of your next turn.</div>
-            <div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Faded:</span> Your flurry has faded, reducing your attack rolls by 2 per stack. Triggering Zeal removes this effect.</div>
+            <div class="mt-3">Anchor yourself in place and unleash a rapid assault of 5 Extra Attacks. While Divine Flurry is active, the number you need to score a critical hit with weapon attacks is reduced by 2. When Divine Flurry ends, you become <b>Faded</b> until the end of your next turn.<br>These attacks do not trigger Zeal</b></div>
+            <div class="mt-3 p-3 rounded" style="border:1px solid #22232b;background:rgba(0,0,0,.15)"><span class="font-semibold">Faded:</span> Your flurry has faded, reducing your attack rolls by 2 per stack. Zeal removes this effect.</div>
             <div class="mt-4"><div class="text-gray-400">Upcast:</div><div>Reduce the number you need to score a critical hit by 1</div></div>
           </div>
           <div class="card-icon">
@@ -1452,7 +1452,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
     </div>
     <!-- LORE -->
     <section class="anchor rounded-lg" id="cleric-lore" style="border:1px solid #22232b;background:#121217;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 0 0 1px rgba(255,255,255,.03)">
-      <div class="p-6 text-lg text-gray-400 space-y-4"><em>"While many walk with the waking, you feel at home in dream; filled with endless possibilities and the deepest, darkest fears."</em>
+      <div class="p-6 text-lg text-gray-400 space-y-4"><em>"You use dream as a battlefield, confronting your foes where they are weakest with what they fear most."</em>
       </div>
     </section>
     <!-- 1st Level -->
@@ -1541,7 +1541,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Nightmare icon" class="object-contain" src="images/nightmare.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">When a nearby foe fails a Wisdom or Intelligence saving throw, you can use your reaction to impose a nightmare, dealing 2d10 + Level as psychic damage. You can use this feature a number of times equal to your Wisdom modifier per Long Rest.</div>
+            <div class="mt-3">When a nearby foe fails a Wisdom or Intelligence saving throw, you can use your reaction to impose a nightmare, dealing 2d10 + Cleric Level as psychic damage. You can use this feature a number of times equal to your Wisdom modifier per Long Rest.</div>
           </div>
           <div class="card-icon">
             <img alt="Nightmare icon" class="object-contain" src="images/nightmare.png"/>
@@ -1576,7 +1576,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
         <!-- Torment -->
         <article class="rounded-md p-4 ability-card" style="border:1px solid #22232b">
           <div>
-            <h3 class="font-semibold leading-tight text-[1.8rem]">Torment</h3>
+            <h3 class="font-semibold leading-tight text-[1.8rem]">The Third Eye</h3>
             <div class="text-gray-400"><em>Passive</em></div>
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Torment icon" class="object-contain" src="images/dreamwalker.png" style="width:112px;height:112px"/>
@@ -1687,7 +1687,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Salvo icon" class="object-contain" src="images/salvo.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">You can use your bonus action to prime your next Arcane Ordnance attack to fires two projectiles, have 50% more range and cost additional ammo. </div>
+            <div class="mt-3">You can use your bonus action to make your next Arcane Ordnance attack fires two projectiles, have 50% more range and cost additional ammo. </div>
           </div>
           <div class="card-icon">
             <img alt="Salvo icon" class="object-contain" src="images/salvo.png"/>
@@ -1723,7 +1723,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Barrage icon" class="object-contain" src="images/barrage.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">You can use your bonus action and at least 9m of movement to prime your next Arcane Ordnance attack to fire three projectiles, have 50% more range and cost additional ammo.</div>
+            <div class="mt-3">You can use your bonus action and at least 9m of movement to make your next Arcane Ordnance attack fire three projectiles, have 50% more range and cost additional ammo.</div>
           </div>
           <div class="card-icon">
             <img alt="Barrage icon" class="object-contain" src="images/barrage.png"/>
@@ -1866,7 +1866,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Haunt icon" class="object-contain" src="images/haunt.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">Overwhelm a creature’s every instinct, causing their attacks to be made at Disadvantage unless targetting you and gaining Resistance to any damage they deal. Once Haunted, they remain so until they die or your rage ends. If a Haunted foe dies, you can recast Haunt as a free action.</div>
+            <div class="mt-3">Overwhelm a creature’s every instinct with revenge, causing their attacks to be made at Disadvantage unless targetting you and gaining Resistance to any damage they deal. Once Haunted, they remain so until they die or your rage ends. If a Haunted foe dies, you can recast Haunt as a free action.</div>
           </div>
           <div class="card-icon">
             <img alt="Haunt icon" class="object-contain" src="images/haunt.png"/>
@@ -1886,7 +1886,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Gravemarch icon" class="object-contain" src="images/gravemarch.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">Each time your Haunted foe dies you gain maximum hitpoints equal to your Proficiency Bonus plus your Constitution modifier and increase one category of size. Additional stacks increase maximum hitpoints only. Gain your Rage modifier as Spell DC each time Haunt is saved against until it succeeds.</div>
+            <div class="mt-3">Each time your Haunted foe dies you gain maximum hitpoints equal to your Proficiency Bonus plus your Constitution modifier and increase one category of size. Additional stacks increase maximum hitpoints only. <br><br>Gain your Rage modifier as Spell DC each time Haunt is saved against until it succeeds.</div>
           </div>
           <div class="card-icon">
             <img alt="Gravemarch icon" class="object-contain" src="images/gravemarch.png"/>
@@ -2165,7 +2165,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Vile Afflictions icon" class="object-contain" src="images/vile_afflictions.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">You can spend 1 Sorcery Point to make your next Poison spell to pierce Resistance and Immunity. Add your Intelligence modifier when you deal damage with <strong>Wither</strong> or <strong>Decay</strong>.</div>
+            <div class="mt-3">You can spend 1 Sorcery Point to make your next Poison spell to pierce Resistance and Immunity. <br><br>Add your Intelligence modifier when you deal damage with <strong>Wither</strong> or <strong>Decay</strong>.</div>
           </div>
           <div class="card-icon">
             <img alt="Vile Afflictions icon" class="object-contain" src="images/vile_afflictions.png"/>
@@ -2266,7 +2266,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Conduit of the Weave icon" class="object-contain" src="images/conduit_of_the_weave.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">When a levelled spell is cast within 18&nbsp;m, you can use your reaction to siphon some of its energy, restoring a Sorcery Point. You can hold up to 1 + your Intelligence modifier Sorcery Points that replenish on a Long Rest. Both this reaction and any other casting features require a free offhand and at most Light Armor.</div>
+            <div class="mt-3">When a levelled spell is cast within 18&nbsp;m, you can use your reaction to siphon some of its energy, restoring a Sorcery Point. You can hold up to 1 + your Intelligence modifier Sorcery Points that replenish on a Long Rest. <br><br>Both this reaction and any other Seeker casting features require a free offhand and at most Light Armor.</div>
           </div>
           <div class="card-icon">
             <img alt="Conduit of the Weave icon" class="object-contain" src="images/conduit_of_the_weave.png"/>
@@ -2321,7 +2321,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Arcane Bolts icon" class="object-contain" src="images/arcane_bolts.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">Fire 3 bolts of arcane energy, each dealing 1d4+1 Force damage. These bolts always hit targets protected by <strong>Shield</strong>. Requires a free offhand in both weapon sets. Damage dice increases by one step at level 7 and 13.</div>
+            <div class="mt-3">Fire 3 bolts of arcane energy, each dealing 1d4+1 Force damage. These bolts always hit targets protected by <strong>Shield</strong>. Damage dice increases by one step at level 7 and 13.</div>
           </div>
           <div class="card-icon">
             <img alt="Arcane Bolts icon" class="object-contain" src="images/arcane_bolts.png"/>
@@ -2355,7 +2355,7 @@ Send in your feedback or a bug report: <a href="mailto:daeleneverlight@gmail.com
             <div class="lg:hidden flex justify-center mt-3">
               <img alt="Arcane Strike: Decoy icon" class="object-contain" src="images/arcane_strike_decoy.png" style="width:112px;height:112px"/>
             </div>
-            <div class="mt-3">Perform an Arcane Strike and gain a Mirror Image that lasts until you are missed by an attack. You can keep up to 3 Mirror Images at once.</div>
+            <div class="mt-3">Perform an Arcane Strike and gain a Mirror Image that grants +3 AC and remains until you are missed by an attack. You can keep up to 3 Mirror Images at once.</div>
           </div>
           <div class="card-icon">
             <img alt="Arcane Strike: Decoy icon" class="object-contain" src="images/arcane_strike_decoy.png"/>
@@ -2613,7 +2613,7 @@ showClass(initKey, true);
     frost: `<strong>Frost (1d6, Radius 3&nbsp;m):</strong> Freeze surfaces and leave a patch of ice.`,
     poison: `<strong>Poison (1d6, Radius 3&nbsp;m):</strong> Poison creatures struck and leave a puddle of poison for 1 turn.`,
     acid: `<strong>Acid (1d6, Radius 3&nbsp;m):</strong> Create a puddle of acid and deal an additional 1d6 to foes struck at the start of their next turn.`,
-    lightning: `<strong>Lightning (1d12, Radius 1&nbsp;m):</strong> Electrify surfaces and Shock foes directly hit.`,
+    lightning: `<strong>Lightning (1d10, Radius 1&nbsp;m):</strong> Electrify surfaces and Shock foes directly hit.`,
     thunder: `<strong>Thunder (1d4, Radius 2&nbsp;m):</strong> Knock creatures prone and clear any clouds or surfaces.`
   };
   const row = document.getElementById('arcaneRow');
